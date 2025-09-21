@@ -20,7 +20,7 @@ bool PipelineStateManager::Initialize()
 				isError = true;
 			}
 
-		}, L"RootSignatureの作成: ", true);
+		}, L"RootSignatureの作成: ", false);
 	if (isError) return false;
 
 	// 入力レイアウトの作成
@@ -56,7 +56,7 @@ bool PipelineStateManager::Initialize()
 			{
 				isError = true;
 			}
-		}, L"PipelineStateObjectの作成: ", true, DebugHelper::TimeType::MilliSecond);
+		}, L"PipelineStateObjectの作成: ", false, DebugHelper::TimeType::MilliSecond);
 	if (isError) return false;
 
 	return true;

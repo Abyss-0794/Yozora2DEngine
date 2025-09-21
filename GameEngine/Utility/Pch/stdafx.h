@@ -6,7 +6,7 @@
 #include <DirectXMath.h>
 #include "d3dx12.h"
 
-#include "../Debug/DebugHelper.h"
+#include "../DebugHelper/DebugHelper.h"
 
 #include <Windows.h>
 #include <iostream>
