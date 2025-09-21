@@ -12,7 +12,12 @@ public:
 	{
 		TYPE_DEFAULT,
 		TYPE_TEXTURE,
-		COUNT
+		COUNT_PSO
+	};
+	enum ROOTSIGType
+	{
+		TYPE_DRAW,
+		COUNT_ROOTSIG
 	};
 
 	PipelineStateManager(GraphicsDevice& graphicsDevice, ShaderManager& shaderManager);
@@ -20,7 +25,7 @@ public:
 	ID3D12PipelineState* GetDynamicPSO(PSOKey key);
 	ID3D12PipelineState* GetFixedPSO(PSOType type);
 	ID3D12RootSignature* GetDynamicRootSignature(PSOKey key);
-	ID3D12RootSignature* GetFixedRootSignature(PSOType type);
+	ID3D12RootSignature* GetFixedRootSignature(ROOTSIGType type);
 
 private:
 	PSOKey HashKey(const std::string& name)
@@ -31,8 +36,8 @@ private:
 	GraphicsDevice& m_graphicsDevice;
 	ShaderManager& m_shaderManager;
 
-	std::array<ComPtr<ID3D12PipelineState>, static_cast<size_t>(PSOType::COUNT)> m_fixedPsoArray;			// 固定種類用PSO
-	std::array<ComPtr<ID3D12RootSignature>, static_cast<size_t>(PSOType::COUNT)> m_fixedrootSignatureArray;	// 固定種類用RS
+	std::array<ComPtr<ID3D12PipelineState>, static_cast<size_t>(PSOType::COUNT_PSO)> m_fixedPsoArray;			// 固定種類用PSO
+	std::array<ComPtr<ID3D12RootSignature>, static_cast<size_t>(ROOTSIGType::COUNT_ROOTSIG)> m_fixedrootSignatureArray;	// 固定種類用RS
 	std::unordered_map<PSOKey, ComPtr<ID3D12PipelineState>> m_dynamicPsoMap;
 	std::unordered_map<PSOKey, ComPtr<ID3D12RootSignature>> m_rootSignatures;
 

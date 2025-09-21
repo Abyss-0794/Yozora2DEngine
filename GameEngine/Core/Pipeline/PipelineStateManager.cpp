@@ -20,7 +20,7 @@ bool PipelineStateManager::Initialize()
 				isError = true;
 			}
 
-		}, L"RootSignatureの作成: ", false);
+		}, L"RootSignatureの作成: ", true);
 	if (isError) return false;
 
 	// 入力レイアウトの作成
@@ -33,7 +33,7 @@ bool PipelineStateManager::Initialize()
 	// デフォルトPSO設定構造体の作成
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC defaultPsoDesc = {};
 	defaultPsoDesc.InputLayout = { inputLayout, _countof(inputLayout) };
-	defaultPsoDesc.pRootSignature = m_fixedrootSignatureArray[PSOType::TYPE_DEFAULT].Get();
+	defaultPsoDesc.pRootSignature = m_fixedrootSignatureArray[static_cast<size_t>(ROOTSIGType::TYPE_DRAW)].Get();
 	defaultPsoDesc.Flags = D3D12_PIPELINE_STATE_FLAG_DYNAMIC_INDEX_BUFFER_STRIP_CUT;
 	defaultPsoDesc.NodeMask = 0;
 	defaultPsoDesc.BlendState = CD3DX12_BLEND_DESC(D3D12_DEFAULT);
@@ -46,8 +46,8 @@ bool PipelineStateManager::Initialize()
 	defaultPsoDesc.SampleDesc.Count = 1;
 	defaultPsoDesc.SampleDesc.Quality = 0;
 	defaultPsoDesc.SampleMask = UINT_MAX;
-	defaultPsoDesc.VS = CD3DX12_SHADER_BYTECODE(m_shaderManager.LoadShader(L"GameEngine\\Shaders\\BasicShader\\BasicVertexShader.hlsl", "BasicVS", "vs_5_0"));
-	defaultPsoDesc.PS = CD3DX12_SHADER_BYTECODE(m_shaderManager.LoadShader(L"GameEngine\\Shaders\\BasicShader\\BasicPixelShader.hlsl", "BasicPS", "ps_5_0"));
+	defaultPsoDesc.VS = CD3DX12_SHADER_BYTECODE(m_shaderManager.GetShaderBlobs(m_shaderManager.TYPE_DEFAULT).vs.Get());
+	defaultPsoDesc.PS = CD3DX12_SHADER_BYTECODE(m_shaderManager.GetShaderBlobs(m_shaderManager.TYPE_DEFAULT).ps.Get());
 
 	// 複数のPSO作成 (時間も計測)
 	DebugHelper::MeasureTime([&]()
@@ -56,7 +56,7 @@ bool PipelineStateManager::Initialize()
 			{
 				isError = true;
 			}
-		}, L"PipelineStateObjectの作成: ", false, DebugHelper::TimeType::MilliSecond);
+		}, L"PipelineStateObjectの作成: ", true, DebugHelper::TimeType::MilliSecond);
 	if (isError) return false;
 
 	return true;
@@ -92,7 +92,7 @@ ID3D12RootSignature* PipelineStateManager::GetDynamicRootSignature(PSOKey key)
 	return nullptr;
 }
 
-ID3D12RootSignature* PipelineStateManager::GetFixedRootSignature(PSOType type)
+ID3D12RootSignature* PipelineStateManager::GetFixedRootSignature(ROOTSIGType type)
 {
 	auto foundRootSignature = m_fixedrootSignatureArray[type];
 	if (foundRootSignature != nullptr)
@@ -104,9 +104,20 @@ ID3D12RootSignature* PipelineStateManager::GetFixedRootSignature(PSOType type)
 
 bool PipelineStateManager::CreateRootSignature()
 {
+	// ディスクリプタレンジ
+	CD3DX12_DESCRIPTOR_RANGE1 rootDescRange[1] = {};
+	rootDescRange[0].Init(D3D12_DESCRIPTOR_RANGE_TYPE_SRV, 1, 0, 0, D3D12_DESCRIPTOR_RANGE_FLAG_DATA_STATIC);
+
+	// パラメーター
+	CD3DX12_ROOT_PARAMETER1 rootParam[1] = {};
+	rootParam[0].InitAsDescriptorTable(1, &rootDescRange[0], D3D12_SHADER_VISIBILITY_PIXEL);
+
+	// スタティックサンプラー
+	CD3DX12_STATIC_SAMPLER_DESC staticSamp(0, D3D12_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR);
+
 	// ルートシグネチャの設定構造体
 	CD3DX12_VERSIONED_ROOT_SIGNATURE_DESC rootDesc = {};
-	rootDesc.Init_1_1(0, nullptr, 0, nullptr, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
+	rootDesc.Init_1_1(_countof(rootParam), rootParam, 1, &staticSamp, D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT);
 
 	// ルートシグネチャのシリアライズ
 	ComPtr<ID3DBlob> rootSignature, error;
@@ -125,7 +136,7 @@ bool PipelineStateManager::CreateRootSignature()
 	}
 
 	// ルートシグネチャの保存
-	m_fixedrootSignatureArray[PSOType::TYPE_DEFAULT] = targetRootSignature;
+	m_fixedrootSignatureArray[ROOTSIGType::TYPE_DRAW] = targetRootSignature;
 
 	return true;
 }
@@ -133,15 +144,35 @@ bool PipelineStateManager::CreateRootSignature()
 bool PipelineStateManager::CreatePipelineStateObject(D3D12_GRAPHICS_PIPELINE_STATE_DESC& desc)
 {
 	// デフォルトPSOの作成
-	ComPtr<ID3D12PipelineState> pso = nullptr;
-	if (FAILED(m_graphicsDevice.GetDevice()->CreateGraphicsPipelineState(&desc, IID_PPV_ARGS(pso.GetAddressOf()))))
 	{
-		DebugHelper::Print(L"Error: Failed to create default pipeline state object.");
-		return false;
+		ComPtr<ID3D12PipelineState> pso = nullptr;
+		if (FAILED(m_graphicsDevice.GetDevice()->CreateGraphicsPipelineState(&desc, IID_PPV_ARGS(pso.GetAddressOf()))))
+		{
+			DebugHelper::Print(L"Error: Failed to create default pipeline state object.");
+			return false;
+		}
+
+		// デフォルトPSOのキャッシュ追加
+		m_fixedPsoArray[static_cast<size_t>(PSOType::TYPE_DEFAULT)] = pso;
 	}
 
-	// デフォルトPSOのキャッシュ追加
-	m_fixedPsoArray[PSOType::TYPE_DEFAULT] = pso;
+	// テクスチャ用PSOの作成
+	{
+		//desc.pRootSignature = m_fixedrootSignatureArray[static_cast<size_t>(PSOType::TYPE_TEXTURE)].Get();
+		desc.VS = CD3DX12_SHADER_BYTECODE(m_shaderManager.GetShaderBlobs(m_shaderManager.TYPE_TEXTURE).vs.Get());
+		desc.PS = CD3DX12_SHADER_BYTECODE(m_shaderManager.GetShaderBlobs(m_shaderManager.TYPE_TEXTURE).ps.Get());
+		desc.RTVFormats[0] = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
+
+		ComPtr<ID3D12PipelineState> pso = nullptr;
+		if (FAILED(m_graphicsDevice.GetDevice()->CreateGraphicsPipelineState(&desc, IID_PPV_ARGS(pso.GetAddressOf()))))
+		{
+			DebugHelper::Print(L"Error: Failed to create texture pipeline state object.");
+			return false;
+		}
+
+		// デフォルトPSOのキャッシュ追加
+		m_fixedPsoArray[static_cast<size_t>(PSOType::TYPE_TEXTURE)] = pso;
+	}
 
 	return true;
 }

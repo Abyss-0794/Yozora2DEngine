@@ -16,6 +16,7 @@ private:
 	ComPtr<ID3D12CommandQueue> m_cmdQueue = nullptr;
 	ComPtr<IDXGISwapChain4> m_swapChain = nullptr;
 	ComPtr<ID3D12DescriptorHeap> m_rtvHeap = nullptr;
+	ComPtr<ID3D12DescriptorHeap> m_srvHeap = nullptr;
 	ComPtr<ID3D12Resource> m_rtv[FrameCount] = { nullptr, nullptr };
 
 	void EnableDebugLayer();
@@ -25,6 +26,7 @@ public:
 	FORCEINLINE ID3D12Device* GetDevice() { return m_d3dDevice.Get(); }
 	FORCEINLINE ID3D12CommandQueue* GetCommandQueue() { return m_cmdQueue.Get(); }
 	FORCEINLINE ID3D12DescriptorHeap* GetRTVHeap() { return m_rtvHeap.Get(); }
+	FORCEINLINE ID3D12DescriptorHeap* GetSRVHeap() { return m_srvHeap.Get(); }
 	FORCEINLINE ID3D12Resource* GetRTV(int index) { return m_rtv[index].Get(); }
 	FORCEINLINE IDXGISwapChain4* GetSwapChain() { return m_swapChain.Get(); }
 	FORCEINLINE UINT GetCurrentBackBufferCount() { return m_swapChain->GetCurrentBackBufferIndex(); }

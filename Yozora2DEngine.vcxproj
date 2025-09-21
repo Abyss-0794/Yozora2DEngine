@@ -137,8 +137,10 @@
     <ClCompile Include="GameEngine\Core\Renderer\Shape\Base\Shape.cpp" />
     <ClCompile Include="GameEngine\Core\Renderer\Shape\Square\Square.cpp" />
     <ClCompile Include="GameEngine\Core\Renderer\Shape\Triangle\Triangle.cpp" />
+    <ClCompile Include="GameEngine\Core\Renderer\Sprite\Sprite.cpp" />
     <ClCompile Include="GameEngine\Core\Renderer\VertexBuffer\VertexBuffer.cpp" />
     <ClCompile Include="GameEngine\Core\Shader\ShaderManager.cpp" />
+    <ClCompile Include="GameEngine\Core\Texture\TextureManager.cpp" />
     <ClCompile Include="GameEngine\Core\Window\Window.cpp" />
     <ClCompile Include="GameEngine\main.cpp" />
     <ClCompile Include="GameEngine\Utility\Pch\stdafx.cpp">
@@ -154,8 +156,10 @@
     <ClInclude Include="GameEngine\Core\Renderer\Shape\Base\Shape.h" />
     <ClInclude Include="GameEngine\Core\Renderer\Shape\Square\Square.h" />
     <ClInclude Include="GameEngine\Core\Renderer\Shape\Triangle\Triangle.h" />
+    <ClInclude Include="GameEngine\Core\Renderer\Sprite\Sprite.h" />
     <ClInclude Include="GameEngine\Core\Renderer\VertexBuffer\VertexBuffer.h" />
     <ClInclude Include="GameEngine\Core\Shader\ShaderManager.h" />
+    <ClInclude Include="GameEngine\Core\Texture\TextureManager.h" />
     <ClInclude Include="GameEngine\Core\Window\Window.h" />
     <ClInclude Include="GameEngine\Utility\Debug\DebugHelper.h" />
     <ClInclude Include="GameEngine\Utility\Pch\stdafx.h" />
@@ -177,11 +181,36 @@
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">BasicVS</EntryPointName>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
     </FxCompile>
+    <FxCompile Include="GameEngine\Shaders\TextureShader\TexturePixelShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">TexPS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="GameEngine\Shaders\TextureShader\TextureVertexShader.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">TexVS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="GameEngine\Shaders\BasicShader\BasicHeader.hlsli" />
+    <None Include="GameEngine\Shaders\TextureShader\TextureHeader.hlsli" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\directxtk12_desktop_win10.2025.7.10.1\build\native\directxtk12_desktop_win10.targets" Condition="Exists('packages\directxtk12_desktop_win10.2025.7.10.1\build\native\directxtk12_desktop_win10.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\directxtk12_desktop_win10.2025.7.10.1\build\native\directxtk12_desktop_win10.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\directxtk12_desktop_win10.2025.7.10.1\build\native\directxtk12_desktop_win10.targets'))" />
+  </Target>
 </Project>

@@ -38,8 +38,16 @@ bool Engine::Initialize(HINSTANCE hIns, int nCmdShow)
 		return false;
 	}
 
+	// テクスチャマネージャー初期化
+	m_texManager = std::make_unique<TextureManager>(*m_graphicsDevice);
+	if (!m_texManager->LoadShader(L"E:\\VisualStudioProject\\Yozora2DEngine\\GameEngine\\Assets\\girl.png"))
+	{
+		DebugHelper::Print(L"Error: Failed to load texture.");
+		return false;
+	}
+
 	// レンダラーの初期化
-	m_renderer = std::make_unique<Renderer>(*m_graphicsDevice, *m_commandListManager, *m_pipelineStateManager, *m_window);
+	m_renderer = std::make_unique<Renderer>(*m_graphicsDevice, *m_commandListManager, *m_pipelineStateManager, *m_texManager , *m_window);
 
 	return true;
 }

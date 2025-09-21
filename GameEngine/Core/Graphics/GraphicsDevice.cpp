@@ -72,9 +72,24 @@ bool GraphicsDevice::Initialize(HWND hWnd, int width, int height)
 		return false;
 	}
 
+	// ディスクリプタヒープの作成 (SRV)
+	D3D12_DESCRIPTOR_HEAP_DESC srvHeapDesc = {};
+	srvHeapDesc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+	srvHeapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+	srvHeapDesc.NumDescriptors = 1;
+	srvHeapDesc.NodeMask = 0;
+	if (FAILED(m_d3dDevice->CreateDescriptorHeap(&srvHeapDesc, IID_PPV_ARGS(m_srvHeap.GetAddressOf()))))
+	{
+		DebugHelper::Print(L"Error: Failed to create descriptor heap (SRV).");
+		return false;
+	}
+
 	// レンダーターゲットビューの作成
 	m_rtvDescriptorSize = m_d3dDevice->GetDescriptorHandleIncrementSize(D3D12_DESCRIPTOR_HEAP_TYPE_RTV);
 	CD3DX12_CPU_DESCRIPTOR_HANDLE rtvHandle(m_rtvHeap->GetCPUDescriptorHandleForHeapStart());
+	D3D12_RENDER_TARGET_VIEW_DESC rtvDesc = {};
+	rtvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM_SRGB;
+	rtvDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;
 	for (UINT idx = 0; idx < FrameCount; idx++)
 	{
 		if (FAILED(m_swapChain->GetBuffer(idx, IID_PPV_ARGS(m_rtv[idx].GetAddressOf()))))
@@ -82,7 +97,7 @@ bool GraphicsDevice::Initialize(HWND hWnd, int width, int height)
 			DebugHelper::Print(L"Error: Failed to get back buffer (RTV).");
 			return false;
 		}
-		m_d3dDevice->CreateRenderTargetView(m_rtv[idx].Get(), nullptr, rtvHandle);
+		m_d3dDevice->CreateRenderTargetView(m_rtv[idx].Get(), &rtvDesc, rtvHandle);
 		rtvHandle.Offset(1, m_rtvDescriptorSize);
 	}
 

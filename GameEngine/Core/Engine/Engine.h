@@ -6,6 +6,7 @@
 #include "../Renderer/Renderer.h"
 #include "../Shader/ShaderManager.h"
 #include "../Pipeline/PipelineStateManager.h"
+#include "../Texture/TextureManager.h"
 
 class Engine
 {
@@ -21,4 +22,5 @@ private:
 	std::unique_ptr<Renderer> m_renderer;
 	std::unique_ptr<ShaderManager> m_shaderManager;
 	std::unique_ptr<PipelineStateManager> m_pipelineStateManager;
+	std::unique_ptr<TextureManager> m_texManager;
 };

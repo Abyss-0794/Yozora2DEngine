@@ -58,6 +58,18 @@
     <Filter Include="GameEngine\Utility\DebugHelper">
       <UniqueIdentifier>{5c3bdcff-7983-4229-a9ac-b8984a83fd67}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameEngine\Shaders\TextureShader">
+      <UniqueIdentifier>{845ac587-a808-44f6-96c9-e5f55a2b4fdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Core\Texture">
+      <UniqueIdentifier>{e507eed5-b472-406b-8370-6e2c8782d68d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Core\Renderer\Sprite">
+      <UniqueIdentifier>{6b42612e-a5f2-46d0-8647-42887e86f45c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Assets">
+      <UniqueIdentifier>{b12bb24b-3fc1-42fd-b9d2-81b18e8e7f7a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngine\Core\Engine\Engine.cpp">
@@ -96,6 +108,12 @@
     </ClCompile>
     <ClCompile Include="GameEngine\Core\Pipeline\PipelineStateManager.cpp">
       <Filter>GameEngine\Core\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine\Core\Texture\TextureManager.cpp">
+      <Filter>GameEngine\Core\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine\Core\Renderer\Sprite\Sprite.cpp">
+      <Filter>GameEngine\Core\Renderer\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -138,6 +156,12 @@
     <ClInclude Include="GameEngine\Core\Pipeline\PipelineStateManager.h">
       <Filter>GameEngine\Core\Pipeline</Filter>
     </ClInclude>
+    <ClInclude Include="GameEngine\Core\Texture\TextureManager.h">
+      <Filter>GameEngine\Core\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine\Core\Renderer\Sprite\Sprite.h">
+      <Filter>GameEngine\Core\Renderer\Sprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="GameEngine\Shaders\BasicShader\BasicVertexShader.hlsl">
@@ -146,10 +170,20 @@
     <FxCompile Include="GameEngine\Shaders\BasicShader\BasicPixelShader.hlsl">
       <Filter>GameEngine\Shaders\BasicShader</Filter>
     </FxCompile>
+    <FxCompile Include="GameEngine\Shaders\TextureShader\TextureVertexShader.hlsl">
+      <Filter>GameEngine\Shaders\TextureShader</Filter>
+    </FxCompile>
+    <FxCompile Include="GameEngine\Shaders\TextureShader\TexturePixelShader.hlsl">
+      <Filter>GameEngine\Shaders\TextureShader</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="GameEngine\Shaders\BasicShader\BasicHeader.hlsli">
       <Filter>GameEngine\Shaders\BasicShader</Filter>
     </None>
+    <None Include="GameEngine\Shaders\TextureShader\TextureHeader.hlsli">
+      <Filter>GameEngine\Shaders\TextureShader</Filter>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

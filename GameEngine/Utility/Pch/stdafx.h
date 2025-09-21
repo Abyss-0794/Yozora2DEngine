@@ -8,6 +8,11 @@
 
 #include "../DebugHelper/DebugHelper.h"
 
+#include <SimpleMath.h>
+#include <SpriteBatch.h>
+#include <ResourceUploadBatch.h>
+#include <WICTextureLoader.h>
+
 #include <Windows.h>
 #include <iostream>
 #include <wrl.h>
@@ -16,6 +21,7 @@
 #include <vector>
 #include <unordered_map>
 #include <chrono>
+#include <filesystem>
 
 #pragma comment(lib, "d3d12.lib")
 #pragma comment(lib, "dxgi.lib")

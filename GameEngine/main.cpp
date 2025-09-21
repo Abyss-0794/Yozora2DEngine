@@ -8,7 +8,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 	if (!engine.Initialize(hInstance, nCmdShow))
 	{
 		DebugHelper::Print(L"Failed to initialize game engine.");
-		return false;
+		return -1;
 	}
 
 	// ƒGƒ“ƒWƒ“‚ÌƒƒCƒ“ˆ—

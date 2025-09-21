@@ -6,7 +6,7 @@
 #include "../Pipeline/PipelineStateManager.h"
 #include "../Window/Window.h"
 
-Renderer::Renderer(GraphicsDevice& graphicsDevice, CommandListManager& commandListManager, PipelineStateManager& pipelineStateManager, Window& window) :
+Renderer::Renderer(GraphicsDevice& graphicsDevice, CommandListManager& commandListManager, PipelineStateManager& pipelineStateManager, TextureManager& texManager, Window& window) :
 	m_graphicsDevice(graphicsDevice),
 m_commandListManager(commandListManager),
 m_pipelineStateManager(pipelineStateManager),
@@ -14,6 +14,7 @@ m_window(window),
 m_viewPort({ 0,0,static_cast<FLOAT>(m_window.GetWindowWidth()), static_cast<FLOAT>(m_window.GetWindowHeight()) }), m_scissorRect(0, 0, static_cast<LONG>(m_window.GetWindowWidth()), static_cast<LONG>(m_window.GetWindowHeight()))
 {
 	m_shapes.push_back(std::make_unique<Square>(graphicsDevice));
+	m_textures.push_back(std::make_unique<Sprite>(graphicsDevice, texManager, commandListManager, pipelineStateManager));
 }
 
 void Renderer::BeginFrame()
@@ -51,18 +52,18 @@ void Renderer::DrawScene()
 	// コマンドリストの取得
 	auto* cmdList = m_commandListManager.GetCommandList();
 
-	// ポリゴンを描画
+	// テクスチャを描画
 	{
 		// PSOのセット
-		cmdList->SetPipelineState(m_pipelineStateManager.GetFixedPSO(m_pipelineStateManager.TYPE_DEFAULT));
+		cmdList->SetPipelineState(m_pipelineStateManager.GetFixedPSO(m_pipelineStateManager.TYPE_TEXTURE));
 
 		// ルートシグネチャのセット
-		cmdList->SetGraphicsRootSignature(m_pipelineStateManager.GetFixedRootSignature(m_pipelineStateManager.TYPE_DEFAULT));
+		cmdList->SetGraphicsRootSignature(m_pipelineStateManager.GetFixedRootSignature(m_pipelineStateManager.TYPE_DRAW));
 
 		// 描画
-		for (auto& shape : m_shapes)
+		for (auto& tex : m_textures)
 		{
-			shape->Draw(cmdList);
+			tex->Draw(L"E:\\VisualStudioProject\\Yozora2DEngine\\GameEngine\\Assets\\girl.png");
 		}
 	}
 }

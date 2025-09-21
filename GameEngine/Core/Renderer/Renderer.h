@@ -3,16 +3,18 @@
 #include "../Renderer/Shape/Base/Shape.h"
 #include "../Renderer/Shape/Triangle/Triangle.h"
 #include "../Renderer/Shape/Square/Square.h"
+#include "../Renderer/Sprite/Sprite.h"
 
 class GraphicsDevice;
 class CommandListManager;
 class PipelineStateManager;
+class TextureManager;
 class Window;
 
 class Renderer
 {
 public:
-	Renderer(GraphicsDevice& graphicsDevice, CommandListManager& commandListManager, PipelineStateManager& pipelineStateManager, Window& window);
+	Renderer(GraphicsDevice& graphicsDevice, CommandListManager& commandListManager, PipelineStateManager& pipelineStateManager, TextureManager& texManager, Window& window);
 
 	void BeginFrame();
 	void DrawScene();
@@ -28,4 +30,5 @@ private:
 	CD3DX12_RECT m_scissorRect;
 
 	std::vector<std::unique_ptr<Shape>> m_shapes;
+	std::vector<std::unique_ptr<Sprite>> m_textures;
 };
