@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Yozora2DEngine.vcxproj" Id="085841fe-c7d1-4a18-9eca-dfdc07c99cbd" />
+</Solution>

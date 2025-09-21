@@ -1,0 +1,155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="GameEngine">
+      <UniqueIdentifier>{0cab9146-057f-4d7d-a86a-4d1b6bfc4675}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Core">
+      <UniqueIdentifier>{e3825045-2ff2-4d0d-bf48-5e1178aa97d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Core\Engine">
+      <UniqueIdentifier>{aea0be21-fdf5-47c8-952b-1b32b573ed54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Utility">
+      <UniqueIdentifier>{ce56c78d-21b8-4a28-8b0c-82ae6362af96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Utility\Pch">
+      <UniqueIdentifier>{044dd2c0-5c32-4260-b554-eb7b3269b749}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Core\Window">
+      <UniqueIdentifier>{3cb2a849-4c55-4089-855d-067747282b21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Utility\Debug">
+      <UniqueIdentifier>{5c3bdcff-7983-4229-a9ac-b8984a83fd67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Core\Graphics">
+      <UniqueIdentifier>{94091f02-5079-49ad-9833-aec339860c0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Core\Command">
+      <UniqueIdentifier>{57055573-2432-4eee-87b7-98a8ceb98e65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Core\Renderer">
+      <UniqueIdentifier>{c928f531-c0d7-4ce7-be18-4db9fc941d31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Core\Renderer\Shape">
+      <UniqueIdentifier>{d4e4741b-72d0-4dca-93b6-19f01f176995}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Core\Renderer\Shape\Base">
+      <UniqueIdentifier>{a4b91be3-01ef-4625-ad1d-e0c2d7a871b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Core\Renderer\Shape\Square">
+      <UniqueIdentifier>{b2fb97e7-6ce8-4842-8d1b-4a5e97d45f4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Core\Renderer\VertexBuffer">
+      <UniqueIdentifier>{0c315ab1-aa1a-42d8-bb3c-aeaca0e3ffa9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Core\Renderer\Shape\Triangle">
+      <UniqueIdentifier>{0040842f-2795-4f3c-8c77-2ae33188a080}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Core\Pipeline">
+      <UniqueIdentifier>{e143f3e7-bd87-4323-8cb8-b56b0ad7ecb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Shaders">
+      <UniqueIdentifier>{409e6a3c-0741-4218-842a-05378b7625e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Shaders\BasicShader">
+      <UniqueIdentifier>{1b334e40-b37b-4c88-be90-900fbb62b8a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameEngine\Core\Shader">
+      <UniqueIdentifier>{da714c6e-e008-4ed8-ad51-d03aafefa5af}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GameEngine\Core\Engine\Engine.cpp">
+      <Filter>GameEngine\Core\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine\Utility\Pch\stdafx.cpp">
+      <Filter>GameEngine\Utility\Pch</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine\Core\Window\Window.cpp">
+      <Filter>GameEngine\Core\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine\main.cpp" />
+    <ClCompile Include="GameEngine\Core\Graphics\GraphicsDevice.cpp">
+      <Filter>GameEngine\Core\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine\Core\Command\CommandListManager.cpp">
+      <Filter>GameEngine\Core\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine\Core\Renderer\Renderer.cpp">
+      <Filter>GameEngine\Core\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine\Core\Renderer\VertexBuffer\VertexBuffer.cpp">
+      <Filter>GameEngine\Core\Renderer\VertexBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine\Core\Renderer\Shape\Base\Shape.cpp">
+      <Filter>GameEngine\Core\Renderer\Shape\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine\Core\Renderer\Shape\Triangle\Triangle.cpp">
+      <Filter>GameEngine\Core\Renderer\Shape\Triangle</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine\Core\Renderer\Shape\Square\Square.cpp">
+      <Filter>GameEngine\Core\Renderer\Shape\Square</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine\Core\Shader\ShaderManager.cpp">
+      <Filter>GameEngine\Core\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine\Core\Pipeline\PipelineStateManager.cpp">
+      <Filter>GameEngine\Core\Pipeline</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GameEngine\Core\Engine\Engine.h">
+      <Filter>GameEngine\Core\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine\Utility\Pch\stdafx.h">
+      <Filter>GameEngine\Utility\Pch</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine\Core\Window\Window.h">
+      <Filter>GameEngine\Core\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine\Utility\Debug\DebugHelper.h">
+      <Filter>GameEngine\Utility\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine\Core\Graphics\GraphicsDevice.h">
+      <Filter>GameEngine\Core\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine\Core\Command\CommandListManager.h">
+      <Filter>GameEngine\Core\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine\Core\Renderer\Renderer.h">
+      <Filter>GameEngine\Core\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine\Core\Renderer\VertexBuffer\VertexBuffer.h">
+      <Filter>GameEngine\Core\Renderer\VertexBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine\Core\Renderer\Shape\Base\Shape.h">
+      <Filter>GameEngine\Core\Renderer\Shape\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine\Core\Renderer\Shape\Triangle\Triangle.h">
+      <Filter>GameEngine\Core\Renderer\Shape\Triangle</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine\Core\Renderer\Shape\Square\Square.h">
+      <Filter>GameEngine\Core\Renderer\Shape\Square</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine\Core\Shader\ShaderManager.h">
+      <Filter>GameEngine\Core\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine\Core\Pipeline\PipelineStateManager.h">
+      <Filter>GameEngine\Core\Pipeline</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="GameEngine\Shaders\BasicShader\BasicVertexShader.hlsl">
+      <Filter>GameEngine\Shaders\BasicShader</Filter>
+    </FxCompile>
+    <FxCompile Include="GameEngine\Shaders\BasicShader\BasicPixelShader.hlsl">
+      <Filter>GameEngine\Shaders\BasicShader</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="GameEngine\Shaders\BasicShader\BasicHeader.hlsli">
+      <Filter>GameEngine\Shaders\BasicShader</Filter>
+    </None>
+  </ItemGroup>
+</Project>
